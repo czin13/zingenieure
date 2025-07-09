@@ -7,21 +7,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     body {
-      font-family: sans-serif;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
       background-color: #f9f9f9;
-      color: #222;
+      color: #1f1f1f;
       text-align: center;
-      padding: 50px 20px;
     }
-    h1 {
-      font-size: 2.5em;
-      color: #004080;
+    .logo {
+      background-color: black;
+      padding: 20px 0 10px;
     }
-    h2 {
-      font-size: 1.5em;
-      margin: 10px 0 30px;
+    .logo h1 {
+      color: orange;
+      font-size: 4em;
+      margin: 0;
+      letter-spacing: 5px;
     }
-    a {
+    .logo-bottom {
+      background-color: black;
+      height: 10px;
+    }
+    .subtitle {
+      font-size: 2em;
+      margin: 30px 0 40px;
+      color: #333;
+    }
+    .contact a {
       display: inline-block;
       margin: 10px;
       padding: 10px 20px;
@@ -30,16 +42,22 @@
       background-color: #004080;
       border-radius: 5px;
       font-weight: bold;
+      font-size: 1.1em;
     }
-    a:hover {
+    .contact a:hover {
       background-color: #0060b0;
     }
   </style>
 </head>
 <body>
-  <h1>Zingenieure</h1>
-  <h2>Zin</h2>
-  <p><a href="mailto:info@zingenieure.de">📧 E-Mail schreiben</a></p>
-  <p><a href="https://www.linkedin.com/in/DEINNAME" target="_blank">🔗 LinkedIn-Profil</a></p>
+  <div class="logo">
+    <h1>ZIN</h1>
+  </div>
+  <div class="logo-bottom"></div>
+  <div class="subtitle">ZINgenieure</div>
+  <div class="contact">
+    <a href="mailto:info@zingenieure.de">📧 E-Mail schreiben</a>
+    <a href="https://www.linkedin.com/in/DEINNAME" target="_blank">🔗 LinkedIn-Profil</a>
+  </div>
 </body>
 </html>
