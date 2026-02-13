@@ -121,9 +121,23 @@ body {
     box-shadow: 0 8px 30px rgba(0,0,0,0.15);
 }
 
+/* Brief fährt zuerst aus Umschlag */
+
 .opened .letter {
     opacity: 1;
     transform: translateY(-260px);
+}
+
+/* Danach mittig positionieren */
+
+.letter.centered {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(90vw, 420px);
+    height: min(70vh, 520px);
+    z-index: 30;
 }
 
 .letter h2 {
@@ -213,13 +227,22 @@ updateCountdown();
 let slideshowStarted = false;
 
 function openEnvelope() {
-    document.getElementById("envelope").classList.add("opened");
+
+    const envelope = document.getElementById("envelope");
+    const letter = document.querySelector(".letter");
+
+    envelope.classList.add("opened");
 
     if (!slideshowStarted) {
         startSlideshow();
         startHearts();
         slideshowStarted = true;
     }
+
+    // Nach Animation Brief zentrieren
+    setTimeout(() => {
+        letter.classList.add("centered");
+    }, 900);
 }
 
 /* ---------- Slideshow ---------- */
