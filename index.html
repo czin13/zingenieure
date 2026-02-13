@@ -21,14 +21,17 @@ body {
 
 .countdown {
     position: fixed;
-    top: 15px;
-    right: 15px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 180px); /* zentral unter dem Brief */
     background: rgba(255,255,255,0.85);
-    padding: 10px 14px;
+    padding: 16px 20px;
     border-radius: 12px;
-    font-size: 14px;
-    z-index: 20;
+    font-size: 24px; /* größere Schrift */
+    font-weight: bold;
+    z-index: 30; /* über allem */
     backdrop-filter: blur(6px);
+    text-align: center;
 }
 
 /* ---------- Slideshow ---------- */
