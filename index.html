@@ -6,127 +6,117 @@
 <title>Für Dich ❤️</title>
 
 <style>
-    body {
-        margin: 0;
-        height: 100vh;
-        background: #ffe6eb;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-family: "Segoe UI", sans-serif;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    height: 100vh;
+    background: #ffe6eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: "Segoe UI", sans-serif;
+    overflow: hidden;
+}
 
-    /* ---------- Envelope ---------- */
+/* Envelope */
 
-    .envelope-wrapper {
-        position: relative;
-        cursor: pointer;
-        transition: transform 0.5s ease;
-        z-index: 10;
-    }
+.envelope-wrapper {
+    position: relative;
+    cursor: pointer;
+    transition: transform 0.6s ease;
+    z-index: 10;
+}
 
-    .envelope-wrapper.opened {
-        transform: translateY(-150px);
-    }
+.envelope-wrapper.opened {
+    transform: translateY(-150px);
+}
 
-    .envelope {
-        width: 260px;
-        height: 180px;
-        background: #ff8fa3;
-        position: relative;
-        border-radius: 8px;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-    }
+.envelope {
+    width: 260px;
+    height: 180px;
+    background: #ff8fa3;
+    position: relative;
+    border-radius: 8px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
 
-    .flap {
-        position: absolute;
-        width: 0;
-        height: 0;
-        border-left: 130px solid transparent;
-        border-right: 130px solid transparent;
-        border-top: 90px solid #ff6b81;
-        top: 0;
-        left: 0;
-        transform-origin: top;
-        transition: transform 0.7s ease;
-    }
+.flap {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-left: 130px solid transparent;
+    border-right: 130px solid transparent;
+    border-top: 90px solid #ff6b81;
+    top: 0;
+    left: 0;
+    transform-origin: top;
+    transition: transform 0.7s ease;
+}
 
-    .opened .flap {
-        transform: rotateX(180deg);
-    }
+.opened .flap {
+    transform: rotateX(180deg);
+}
 
-    /* ---------- Letter ---------- */
+/* Letter */
 
-    .letter {
-        position: absolute;
-        width: 240px;
-        height: 300px;
-        background: white;
-        left: 10px;
-        top: 40px;
-        border-radius: 6px;
-        padding: 20px;
-        box-sizing: border-box;
-        opacity: 0;
-        transform: translateY(60px);
-        transition: all 1s ease;
-        overflow-y: auto;
-    }
+.letter {
+    position: absolute;
+    width: 240px;
+    height: 300px;
+    background: white;
+    left: 10px;
+    top: 40px;
+    border-radius: 6px;
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 1s ease;
+    overflow-y: auto;
+}
 
-    .opened .letter {
-        opacity: 1;
-        transform: translateY(-220px);
-    }
+.opened .letter {
+    opacity: 1;
+    transform: translateY(-220px);
+}
 
-    .letter h2 {
-        margin-top: 0;
-        color: #ff4d6d;
-    }
+.letter h2 {
+    margin-top: 0;
+    color: #ff4d6d;
+}
 
-    /* ---------- Background Slideshow ---------- */
+/* Hintergrundbild */
 
-    .background-slideshow {
-        position: fixed;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        z-index: -1;
-    }
+.background {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2s ease;
+    z-index: -1;
+}
 
-    .background-slideshow img {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        opacity: 0;
-        transition: opacity 2s ease;
-    }
+.background.visible {
+    opacity: 0.35;
+}
 
-    .background-slideshow img.active {
-        opacity: 0.35;
-    }
 </style>
 </head>
 
 <body>
 
-<div class="background-slideshow">
-    <!-- Hier Bilder einfügen -->
-    <img src="images/mm.jpg">
-</div>
+<img src="mm.jpg" class="background" id="bg">
 
 <div class="envelope-wrapper" onclick="openEnvelope()" id="envelope">
     <div class="envelope">
         <div class="flap"></div>
 
         <div class="letter">
-            <h2>Miclaire ❤️</h2>
+            <h2>Mein Herz ❤️</h2>
             <p>
-               Liebe Miclaire,
+Liebe Miclaire,
 
-              Ich wünsche dir alles Liebe zum Valentinstag <3
+Ich wünsche dir alles Liebe zum Valentinstag <3
 
 Und zu diesem Tag wollte ich dir einfach nochmal sagen wie wichtig du mir bist. Ich freue mich jeden Tag so sehr auf unsere Telefonate, Nachrichten von dir und ganz besonders über schöne Bilder. Auch wenn ich sehr weit weg bin habe ich das Gefühl bei dir zu sein, und es macht mich sehr glücklich dadurch zumindest ein bisschen Teil deiner Erlebnisse zu sein.
 Ich freue mich so sehr für dich dass du eine so tolle Zeit hast, und es würde mich sehr glücklich machen wenn wir auch irgendwann mal so eine Reise gemeinsam machen!
@@ -139,41 +129,14 @@ Dein Chassan
 
             </p>
         </div>
-
     </div>
 </div>
 
 <script>
-
-let slideshowStarted = false;
-
 function openEnvelope() {
-    const envelope = document.getElementById("envelope");
-    envelope.classList.add("opened");
-
-    if (!slideshowStarted) {
-        startSlideshow();
-        slideshowStarted = true;
-    }
+    document.getElementById("envelope").classList.add("opened");
+    document.getElementById("bg").classList.add("visible");
 }
-
-/* ---------- Background slideshow ---------- */
-
-function startSlideshow() {
-    const images = document.querySelectorAll(".background-slideshow img");
-    let index = 0;
-
-    if(images.length === 0) return;
-
-    images[index].classList.add("active");
-
-    setInterval(() => {
-        images[index].classList.remove("active");
-        index = (index + 1) % images.length;
-        images[index].classList.add("active");
-    }, 4000);
-}
-
 </script>
 
 </body>
