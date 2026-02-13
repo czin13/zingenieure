@@ -23,13 +23,13 @@ body {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, 180px); /* zentral unter dem Brief */
+    transform: translate(-50%, 180px);
     background: rgba(255,255,255,0.85);
     padding: 16px 20px;
     border-radius: 12px;
-    font-size: 24px; /* größere Schrift */
+    font-size: 24px;
     font-weight: bold;
-    z-index: 30; /* über allem */
+    z-index: 30;
     backdrop-filter: blur(6px);
     text-align: center;
 }
@@ -120,18 +120,13 @@ body {
     transform: translateY(60px);
     transition: all 1s ease;
     overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
     box-shadow: 0 8px 30px rgba(0,0,0,0.15);
 }
-
-/* Brief fährt zuerst aus Umschlag */
 
 .opened .letter {
     opacity: 1;
     transform: translateY(-260px);
 }
-
-/* Danach mittig positionieren */
 
 .letter.centered {
     position: fixed;
@@ -156,6 +151,27 @@ body {
     white-space: pre-line;
 }
 
+/* ---------- Close Button ---------- */
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 14px;
+    border: none;
+    background: #ff8fa3;
+    color: white;
+    font-size: 18px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.close-btn:hover {
+    background: #ff6b81;
+}
+
 </style>
 </head>
 
@@ -178,6 +194,8 @@ body {
         <div class="flap"></div>
 
 <div class="letter">
+    <button class="close-btn" onclick="event.stopPropagation(); closeEnvelope()">✕</button>
+
     <h2>Für dich ❤️</h2>
     <p>
 Liebe Miclaire,
@@ -190,13 +208,14 @@ Auch wenn ich sehr weit weg bin habe ich das Gefühl bei dir zu sein, und es mac
 
 Ich freue mich so sehr für dich dass du eine so tolle Zeit hast, und es würde mich sehr glücklich machen wenn wir auch irgendwann mal so eine Reise gemeinsam machen!
 
-Ich vermisse dich unglaublich, und freue mich jeden Tag mehr auf den 20.03., nur noch 35 Tage dann hab ich dich endlich wieder bei mir.
+Ich vermisse dich unglaublich, und freue mich jeden Tag mehr auf den 20.03., nur noch 34 Tage dann hab ich dich endlich wieder bei mir.
 
 Ich liebe dich sehr,
 
 Dein Chassan
     </p>
 </div>
+
     </div>
 </div>
 
@@ -205,7 +224,7 @@ Dein Chassan
 /* ---------- Countdown ---------- */
 
 function updateCountdown() {
-    const target = new Date("2026-03-20T19:05:00").getTime();
+    const target = new Date("2026-03-20T00:00:00").getTime();
     const now = new Date().getTime();
     const diff = target - now;
 
@@ -243,10 +262,21 @@ function openEnvelope() {
         slideshowStarted = true;
     }
 
-    // Nach Animation Brief zentrieren
     setTimeout(() => {
         letter.classList.add("centered");
     }, 900);
+}
+
+function closeEnvelope() {
+
+    const envelope = document.getElementById("envelope");
+    const letter = document.querySelector(".letter");
+
+    letter.classList.remove("centered");
+
+    setTimeout(() => {
+        envelope.classList.remove("opened");
+    }, 300);
 }
 
 /* ---------- Slideshow ---------- */
