@@ -1,277 +1,63 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Für Dich ❤️</title>
-
-<style>
-body {
-    margin: 0;
-    height: 100vh;
-    background: #ffe6eb;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-    overflow: hidden;
-}
-
-/* ---------- Countdown ---------- */
-
-.countdown {
-    position: fixed;
-    top: 15px;
-    right: 15px;
-    background: rgba(255,255,255,0.85);
-    padding: 10px 14px;
-    border-radius: 12px;
-    font-size: 14px;
-    z-index: 20;
-    backdrop-filter: blur(6px);
-}
-
-/* ---------- Slideshow ---------- */
-
-.slideshow {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    z-index: -2;
-}
-
-.slideshow img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    opacity: 0;
-    transition: opacity 2s ease;
-}
-
-.slideshow img.active {
-    opacity: 0.35;
-}
-
-/* ---------- Heart Canvas ---------- */
-
-#heartCanvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
-/* ---------- Envelope ---------- */
-
-.envelope-wrapper {
-    position: relative;
-    cursor: pointer;
-    transition: transform 0.6s ease;
-    z-index: 10;
-}
-
-.envelope-wrapper.opened {
-    transform: translateY(-120px);
-}
-
-.envelope {
-    width: 240px;
-    height: 165px;
-    background: #ff8fa3;
-    position: relative;
-    border-radius: 10px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-}
-
-.flap {
-    position: absolute;
-    width: 0;
-    height: 0;
-    border-left: 120px solid transparent;
-    border-right: 120px solid transparent;
-    border-top: 80px solid #ff6b81;
-    top: 0;
-    left: 0;
-    transform-origin: top;
-    transition: transform 0.7s ease;
-}
-
-.opened .flap {
-    transform: rotateX(180deg);
-}
-
-/* ---------- Letter ---------- */
-
-.letter {
-    position: absolute;
-    width: 220px;
-    height: 280px;
-    background: white;
-    left: 10px;
-    top: 40px;
-    border-radius: 10px;
-    padding: 18px;
-    box-sizing: border-box;
-    opacity: 0;
-    transform: translateY(60px);
-    transition: all 1s ease;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-}
-
-.opened .letter {
-    opacity: 1;
-    transform: translateY(-200px);
-}
-
-.letter h2 {
-    margin-top: 0;
-    color: #ff4d6d;
-    font-size: 20px;
-}
-
-.letter p {
-    font-size: 15px;
-    line-height: 1.5;
-}
-
-</style>
+  <meta charset="UTF-8">
+  <title>Zingenieure</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #f9f9f9;
+      color: #1f1f1f;
+      text-align: center;
+    }
+    .logo {
+      background-color: black;
+      padding: 20px 0 10px;
+    }
+    .logo h1 {
+      color: orange;
+      font-size: 4em;
+      margin: 0;
+      letter-spacing: 5px;
+    }
+    .logo-bottom {
+      background-color: black;
+      height: 10px;
+    }
+    .subtitle {
+      font-size: 2em;
+      margin: 30px 0 40px;
+      color: #333;
+    }
+    .contact a {
+      display: inline-block;
+      margin: 10px;
+      padding: 10px 20px;
+      text-decoration: none;
+      color: white;
+      background-color: #004080;
+      border-radius: 5px;
+      font-weight: bold;
+      font-size: 1.1em;
+    }
+    .contact a:hover {
+      background-color: #0060b0;
+    }
+  </style>
 </head>
-
 <body>
-
-<div class="countdown" id="countdown"></div>
-
-<canvas id="heartCanvas"></canvas>
-
-<div class="slideshow">
-    <img src="mm.jpg">
-    <img src="mm1.jpg">
-    <img src="mm2.jpg">
-    <img src="mm3.jpg">
-    <img src="mm4.jpg">
-</div>
-
-<div class="envelope-wrapper" onclick="openEnvelope()" id="envelope">
-    <div class="envelope">
-        <div class="flap"></div>
-
-        <div class="letter">
-            <h2>Mein Herz ❤️</h2>
-            <p>
-                Hier kommt dein Liebesbrief hin ❤️
-            </p>
-        </div>
-    </div>
-</div>
-
-<script>
-
-/* ---------- Countdown ---------- */
-
-function updateCountdown() {
-    const target = new Date("2026-03-20T00:00:00").getTime();
-    const now = new Date().getTime();
-    const diff = target - now;
-
-    if (diff <= 0) {
-        document.getElementById("countdown").innerHTML = "❤️ Heute ❤️";
-        return;
-    }
-
-    const days = Math.floor(diff / (1000*60*60*24));
-    const hours = Math.floor((diff % (1000*60*60*24))/(1000*60*60));
-    const minutes = Math.floor((diff % (1000*60*60))/(1000*60));
-    const seconds = Math.floor((diff % (1000*60))/1000);
-
-    document.getElementById("countdown").innerHTML =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
-}
-
-setInterval(updateCountdown, 1000);
-updateCountdown();
-
-/* ---------- Envelope ---------- */
-
-let slideshowStarted = false;
-
-function openEnvelope() {
-    document.getElementById("envelope").classList.add("opened");
-
-    if (!slideshowStarted) {
-        startSlideshow();
-        startHearts();
-        slideshowStarted = true;
-    }
-}
-
-/* ---------- Slideshow ---------- */
-
-function startSlideshow() {
-    const images = document.querySelectorAll(".slideshow img");
-    let index = 0;
-
-    images[index].classList.add("active");
-
-    setInterval(() => {
-        images[index].classList.remove("active");
-        index = (index + 1) % images.length;
-        images[index].classList.add("active");
-    }, 4000);
-}
-
-/* ---------- Heart Particles ---------- */
-
-function startHearts() {
-
-    const canvas = document.getElementById("heartCanvas");
-    const ctx = canvas.getContext("2d");
-
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-
-    let hearts = [];
-
-    function createHeart() {
-        hearts.push({
-            x: Math.random() * canvas.width,
-            y: canvas.height + 20,
-            size: Math.random() * 12 + 8,
-            speed: Math.random() * 1 + 0.5
-        });
-    }
-
-    function drawHeart(x, y, size) {
-        ctx.fillStyle = "rgba(255, 105, 140, 0.7)";
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.bezierCurveTo(x, y - size/2, x - size, y - size/2, x - size, y);
-        ctx.bezierCurveTo(x - size, y + size/2, x, y + size, x, y + size);
-        ctx.bezierCurveTo(x, y + size, x + size, y + size/2, x + size, y);
-        ctx.bezierCurveTo(x + size, y - size/2, x, y - size/2, x, y);
-        ctx.fill();
-    }
-
-    function animate() {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-
-        hearts.forEach((heart, i) => {
-            heart.y -= heart.speed;
-            drawHeart(heart.x, heart.y, heart.size);
-
-            if (heart.y < -20) hearts.splice(i,1);
-        });
-
-        if (Math.random() < 0.08) createHeart();
-
-        requestAnimationFrame(animate);
-    }
-
-    animate();
-}
-
-</script>
-
+  <div class="logo">
+    <h1>ZIN</h1>
+  </div>
+  <div class="logo-bottom"></div>
+  <div class="subtitle">ZINgenieure</div>
+  <div class="contact">
+    <a href="mailto:info@zingenieure.de">📧 E-Mail schreiben</a>
+    <a href="https://www.linkedin.com/in/DEINNAME" target="_blank">🔗 LinkedIn-Profil</a>
+  </div>
 </body>
 </html>
